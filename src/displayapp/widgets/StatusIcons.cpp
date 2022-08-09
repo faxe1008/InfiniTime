@@ -3,8 +3,8 @@
 
 using namespace Pinetime::Applications::Widgets;
 
-StatusIcons::StatusIcons(Controllers::Battery& batteryController, Controllers::Ble& bleController)
-  : batteryController {batteryController}, bleController {bleController} {
+StatusIcons::StatusIcons(Controllers::Battery& batteryController, Controllers::Ble& bleController, Controllers::AlarmController& alarmController)
+  : batteryController {batteryController}, bleController {bleController}, alarmController { alarmController } {
 }
 
 void StatusIcons::Create() {
@@ -13,6 +13,9 @@ void StatusIcons::Create() {
   lv_cont_set_fit(container, LV_FIT_TIGHT);
   lv_obj_set_style_local_pad_inner(container, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, 5);
   lv_obj_set_style_local_bg_opa(container, LV_CONT_PART_MAIN, LV_STATE_DEFAULT, LV_OPA_TRANSP);
+
+  alarmIcon = lv_label_create(container, nullptr);
+  lv_label_set_text_static(alarmIcon, Screens::Symbols::clock);
 
   bleIcon = lv_label_create(container, nullptr);
   lv_obj_set_style_local_text_color(bleIcon, LV_LABEL_PART_MAIN, LV_STATE_DEFAULT, lv_color_hex(0x0082FC));
@@ -43,6 +46,11 @@ void StatusIcons::Update() {
   bleRadioEnabled = bleController.IsRadioEnabled();
   if (bleState.IsUpdated() || bleRadioEnabled.IsUpdated()) {
     lv_obj_set_hidden(bleIcon, !bleState.Get());
+  }
+
+  alarmEnabled = alarmController.State() == Controllers::AlarmController::AlarmState::Set;
+  if(alarmEnabled.IsUpdated()){
+    lv_obj_set_hidden(alarmIcon, !alarmEnabled.Get());
   }
 
   lv_obj_realign(container);

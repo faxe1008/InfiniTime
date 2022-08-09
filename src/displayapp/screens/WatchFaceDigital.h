@@ -31,7 +31,8 @@ namespace Pinetime {
                          Controllers::NotificationManager& notificatioManager,
                          Controllers::Settings& settingsController,
                          Controllers::HeartRateController& heartRateController,
-                         Controllers::MotionController& motionController);
+                         Controllers::MotionController& motionController,
+                         Controllers::AlarmController& alarmController);
         ~WatchFaceDigital() override;
 
         void Refresh() override;

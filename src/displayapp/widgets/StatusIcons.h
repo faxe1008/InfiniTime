@@ -12,7 +12,7 @@ namespace Pinetime {
     namespace Widgets {
       class StatusIcons {
       public:
-        StatusIcons(Controllers::Battery& batteryController, Controllers::Ble& bleController);
+        StatusIcons(Controllers::Battery& batteryController, Controllers::Ble& bleController, Controllers::AlarmController& alarmController);
         void Align();
         void Create();
         lv_obj_t* GetObject() {
@@ -24,14 +24,17 @@ namespace Pinetime {
         Screens::BatteryIcon batteryIcon;
         Pinetime::Controllers::Battery& batteryController;
         Controllers::Ble& bleController;
+        Controllers::AlarmController alarmController;
 
         Screens::DirtyValue<uint8_t> batteryPercentRemaining {};
         Screens::DirtyValue<bool> powerPresent {};
         Screens::DirtyValue<bool> bleState {};
         Screens::DirtyValue<bool> bleRadioEnabled {};
+        Screens::DirtyValue<bool> alarmEnabled {};
 
         lv_obj_t* bleIcon;
         lv_obj_t* batteryPlug;
+        lv_obj_t* alarmIcon;
         lv_obj_t* container;
       };
     }

@@ -20,7 +20,8 @@ namespace Pinetime {
                                  Pinetime::Controllers::Settings& settingsController,
                                  Pinetime::Controllers::Battery& batteryController,
                                  Pinetime::Controllers::Ble& bleController,
-                                 Controllers::DateTime& dateTimeController);
+                                 Controllers::DateTime& dateTimeController,
+                                 Pinetime::Controllers::AlarmController& alarmController);
         ~ApplicationList() override;
         bool OnTouchEvent(TouchEvents event) override;
 
@@ -32,6 +33,7 @@ namespace Pinetime {
         Pinetime::Controllers::Battery& batteryController;
         Pinetime::Controllers::Ble& bleController;
         Controllers::DateTime& dateTimeController;
+        Pinetime::Controllers::AlarmController& alarmController;
 
         static constexpr int appsPerScreen = 6;
 

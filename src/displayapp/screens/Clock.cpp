@@ -22,7 +22,8 @@ Clock::Clock(DisplayApp* app,
              Controllers::NotificationManager& notificatioManager,
              Controllers::Settings& settingsController,
              Controllers::HeartRateController& heartRateController,
-             Controllers::MotionController& motionController)
+             Controllers::MotionController& motionController,
+             Controllers::AlarmController& alarmController)
   : Screen(app),
     dateTimeController {dateTimeController},
     batteryController {batteryController},
@@ -31,6 +32,7 @@ Clock::Clock(DisplayApp* app,
     settingsController {settingsController},
     heartRateController {heartRateController},
     motionController {motionController},
+    alarmController {alarmController},
     screen {[this, &settingsController]() {
       switch (settingsController.GetClockFace()) {
         case 0:
@@ -71,26 +73,18 @@ std::unique_ptr<Screen> Clock::WatchFaceDigitalScreen() {
                                                      notificatioManager,
                                                      settingsController,
                                                      heartRateController,
-                                                     motionController);
+                                                     motionController,
+                                                     alarmController);
 }
 
 std::unique_ptr<Screen> Clock::WatchFaceAnalogScreen() {
-  return std::make_unique<Screens::WatchFaceAnalog>(app,
-                                                    dateTimeController,
-                                                    batteryController,
-                                                    bleController,
-                                                    notificatioManager,
-                                                    settingsController);
+  return std::make_unique<Screens::WatchFaceAnalog>(
+    app, dateTimeController, batteryController, bleController, notificatioManager, settingsController);
 }
 
 std::unique_ptr<Screen> Clock::WatchFacePineTimeStyleScreen() {
-  return std::make_unique<Screens::WatchFacePineTimeStyle>(app,
-                                                           dateTimeController,
-                                                           batteryController,
-                                                           bleController,
-                                                           notificatioManager,
-                                                           settingsController,
-                                                           motionController);
+  return std::make_unique<Screens::WatchFacePineTimeStyle>(
+    app, dateTimeController, batteryController, bleController, notificatioManager, settingsController, motionController);
 }
 
 std::unique_ptr<Screen> Clock::WatchFaceTerminalScreen() {
