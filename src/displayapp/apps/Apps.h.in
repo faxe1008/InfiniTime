@@ -44,7 +44,6 @@ namespace Pinetime {
       SettingBluetooth,
       SettingDoubleClick,
       Error,
-      Weather
     };
 
     enum class WatchFace : uint8_t {
